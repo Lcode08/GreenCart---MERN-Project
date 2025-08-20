@@ -10,8 +10,12 @@ axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 // Add token to requests if available
 axios.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
+    const sellerToken = localStorage.getItem('sellerToken');
+    
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
+    } else if (sellerToken) {
+        config.headers.Authorization = `Bearer ${sellerToken}`;
     }
     return config;
 });
