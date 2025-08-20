@@ -7,6 +7,15 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
+// Add token to requests if available
+axios.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
 export const AppContext = createContext();
 
 export const AppContextProvider = ({children})=>{
@@ -15,6 +24,7 @@ export const AppContextProvider = ({children})=>{
 
     const navigate = useNavigate();
     const [user, setUser] = useState(null)
+    const [token, setToken] = useState(localStorage.getItem('token'))
     const [isSeller, setIsSeller] = useState(false)
     const [showUserLogin, setShowUserLogin] = useState(false)
     const [products, setProducts] = useState([])
@@ -39,7 +49,7 @@ export const AppContextProvider = ({children})=>{
     // Fetch User Auth Status , User Data and Cart Items
 const fetchUser = async ()=>{
     try {
-        const {data} = await axios.get('api/user/is-auth');
+        const {data} = await axios.get('/api/user/is-auth');
         if (data.success){
             setUser(data.user)
             setCartItems(data.user.cartItems)
@@ -145,7 +155,7 @@ const getCartAmount = () =>{
         }
     },[cartItems])
 
-    const value = {navigate, user, setUser, setIsSeller, isSeller,
+    const value = {navigate, user, setUser, token, setToken, setIsSeller, isSeller,
         showUserLogin, setShowUserLogin, products, currency, addToCart, updateCartItem, removeFromCart, cartItems, searchQuery, setSearchQuery, getCartAmount, getCartCount, axios, fetchProducts, setCartItems
     }
 
