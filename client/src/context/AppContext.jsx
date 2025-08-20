@@ -12,11 +12,29 @@ axios.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     const sellerToken = localStorage.getItem('sellerToken');
     
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    } else if (sellerToken) {
+    // Determine which token to use based on the request URL
+    const isSellerRequest = config.url?.includes('/api/seller') || 
+                           config.url?.includes('/api/product') || 
+                           config.url?.includes('/api/order/seller');
+    
+    if (isSellerRequest && sellerToken) {
         config.headers.Authorization = `Bearer ${sellerToken}`;
+        console.log(`🔑 Using seller token for: ${config.url}`);
+    } else if (!isSellerRequest && token) {
+        config.headers.Authorization = `Bearer ${token}`;
+        console.log(`🔑 Using user token for: ${config.url}`);
+    } else if (sellerToken && !token) {
+        // Fallback: if only seller token exists, use it
+        config.headers.Authorization = `Bearer ${sellerToken}`;
+        console.log(`🔑 Using seller token (fallback) for: ${config.url}`);
+    } else if (token && !sellerToken) {
+        // Fallback: if only user token exists, use it
+        config.headers.Authorization = `Bearer ${token}`;
+        console.log(`🔑 Using user token (fallback) for: ${config.url}`);
+    } else {
+        console.log(`⚠️ No token available for: ${config.url}`);
     }
+    
     return config;
 });
 
