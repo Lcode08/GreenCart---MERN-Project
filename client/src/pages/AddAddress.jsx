@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { assets } from '../assets/assets'
 import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
+import { LoadingButton } from '../components/Loader'
 
 // Input Field Component
 const InputField = ({ type, placeholder, name, handleChange, address })=>(
-    <input className='w-full px-2 py-2.5 border border-gray-500/30 rounded outline-none text-gray-500 focus:border-primary transition'
+    <input className='w-full px-3 py-3 border border-gray-300 dark:border-gray-600 rounded-lg outline-none text-gray-700 dark:text-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-500 hover:border-gray-400 bg-white dark:bg-slate-700'
     type={type}
     placeholder={placeholder}
     onChange={handleChange}
@@ -18,6 +19,7 @@ const InputField = ({ type, placeholder, name, handleChange, address })=>(
 const AddAddress = () => {
 
     const {axios, user, navigate} = useAppContext();
+    const [loading, setLoading] = useState(false);
 
     const [address, setAddress] = useState({
         firstName: '',
@@ -46,6 +48,7 @@ const AddAddress = () => {
 
     const onSubmitHandler = async (e)=>{
         e.preventDefault();
+        setLoading(true);
         try {
             const {data} = await axios.post('/api/address/add', {address});
 
@@ -57,6 +60,8 @@ const AddAddress = () => {
             }
         } catch (error) {
             toast.error(error.response?.data?.message || error.message)
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -68,7 +73,7 @@ const AddAddress = () => {
 
   return (
     <div className='mt-16 pb-16'>
-      <p className='text-2xl md:text-3xl text-gray-500'>Add Shipping <span className='font-semibold text-primary'>Address</span></p>
+      <p className='text-2xl md:text-3xl text-gray-500 dark:text-gray-400'>Add Shipping <span className='font-semibold text-primary'>Address</span></p>
       <div className='flex flex-col-reverse md:flex-row justify-between mt-10'>
             <div className='flex-1 max-w-md'>
              <form onSubmit={onSubmitHandler} className='space-y-3 mt-6 text-sm'>
@@ -93,9 +98,13 @@ const AddAddress = () => {
 
                 <InputField handleChange={handleChange} address={address} name='phone' type="text" placeholder="Phone" />
 
-                <button className='w-full mt-6 bg-primary text-white py-3 hover:bg-primary-dull transition cursor-pointer uppercase'>
+                <LoadingButton 
+                    loading={loading}
+                    className='w-full mt-6 bg-primary text-white py-3 hover:bg-primary-dull transition cursor-pointer uppercase'
+                    type="submit"
+                >
                     Save address
-                </button>
+                </LoadingButton>
 
 
              </form>

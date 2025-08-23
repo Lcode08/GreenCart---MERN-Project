@@ -18,6 +18,9 @@ import AddProduct from './pages/seller/AddProduct';
 import ProductList from './pages/seller/ProductList';
 import Orders from './pages/seller/Orders';
 import Loading from './components/Loading';
+import ScrollToTop from './components/ScrollToTop';
+import AboutUs from './pages/AboutUs';
+
 
 const App = () => {
 
@@ -25,14 +28,14 @@ const App = () => {
   const {showUserLogin, isSeller} = useAppContext()
 
   return (
-    <div className='text-default min-h-screen text-gray-700 bg-white'>
+    <div className='text-default min-h-screen text-gray-700 bg-white dark:bg-slate-900 dark:text-slate-200 transition-colors duration-300'>
 
      {isSellerPath ? null : <Navbar/>} 
      {showUserLogin ? <Login/> : null}
 
      <Toaster />
 
-      <div className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
+      <div className={`${isSellerPath ? "" : "px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"}`}>
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/products' element={<AllProducts/>} />
@@ -41,6 +44,7 @@ const App = () => {
           <Route path='/cart' element={<Cart/>} />
           <Route path='/add-address' element={<AddAddress/>} />
           <Route path='/my-orders' element={<MyOrders/>} />
+          <Route path='/about' element={<AboutUs/>} />
           <Route path='/loader' element={<Loading/>} />
           <Route path='/seller' element={isSeller ? <SellerLayout/> : <SellerLogin/>}>
             <Route index element={isSeller ? <AddProduct/> : null} />
@@ -50,6 +54,8 @@ const App = () => {
         </Routes>
       </div>
      {!isSellerPath && <Footer/>}
+     <ScrollToTop />
+
     </div>
   )
 }

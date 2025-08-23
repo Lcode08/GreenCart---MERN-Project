@@ -19,20 +19,14 @@ axios.interceptors.request.use((config) => {
     
     if (isSellerRequest && sellerToken) {
         config.headers.Authorization = `Bearer ${sellerToken}`;
-        console.log(`🔑 Using seller token for: ${config.url}`);
     } else if (!isSellerRequest && token) {
         config.headers.Authorization = `Bearer ${token}`;
-        console.log(`🔑 Using user token for: ${config.url}`);
     } else if (sellerToken && !token) {
         // Fallback: if only seller token exists, use it
         config.headers.Authorization = `Bearer ${sellerToken}`;
-        console.log(`🔑 Using seller token (fallback) for: ${config.url}`);
     } else if (token && !sellerToken) {
         // Fallback: if only user token exists, use it
         config.headers.Authorization = `Bearer ${token}`;
-        console.log(`🔑 Using user token (fallback) for: ${config.url}`);
-    } else {
-        console.log(`⚠️ No token available for: ${config.url}`);
     }
     
     return config;

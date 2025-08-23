@@ -94,31 +94,31 @@ const Cart = () => {
     return products.length > 0 && cartItems ? (
         <div className="flex flex-col md:flex-row mt-16">
             <div className='flex-1 max-w-4xl'>
-                <h1 className="text-3xl font-medium mb-6">
+                <h1 className="text-3xl font-medium mb-6 text-gray-800 dark:text-gray-200">
                     Shopping Cart <span className="text-sm text-primary">{getCartCount()} Items</span>
                 </h1>
 
-                <div className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 text-base font-medium pb-3">
+                <div className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 dark:text-gray-400 text-base font-medium pb-3">
                     <p className="text-left">Product Details</p>
                     <p className="text-center">Subtotal</p>
                     <p className="text-center">Action</p>
                 </div>
 
                 {cartArray.map((product, index) => (
-                    <div key={index} className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-3">
+                    <div key={index} className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 dark:text-gray-400 items-center text-sm md:text-base font-medium pt-3">
                         <div className="flex items-center md:gap-6 gap-3">
                             <div onClick={()=>{
                                 navigate(`/products/${product.category.toLowerCase()}/${product._id}`); scrollTo(0,0)
-                            }} className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded">
+                            }} className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-slate-800 hover:shadow-md transition-all duration-200">
                                 <img className="max-w-full h-full object-cover" src={product.image[0]} alt={product.name} />
                             </div>
                             <div>
-                                <p className="hidden md:block font-semibold">{product.name}</p>
-                                <div className="font-normal text-gray-500/70">
+                                <p className="hidden md:block font-semibold text-gray-800 dark:text-gray-200">{product.name}</p>
+                                <div className="font-normal text-gray-500/70 dark:text-gray-400">
                                     <p>Weight: <span>{product.weight || "N/A"}</span></p>
                                     <div className='flex items-center'>
                                         <p>Qty:</p>
-                                        <select onChange={e => updateCartItem(product._id, Number(e.target.value))}  value={cartItems[product._id]} className='outline-none'>
+                                        <select onChange={e => updateCartItem(product._id, Number(e.target.value))}  value={cartItems[product._id]} className='outline-none bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 ml-2'>
                                             {Array(cartItems[product._id] > 9 ? cartItems[product._id] : 9).fill('').map((_, index) => (
                                                 <option key={index} value={index + 1}>{index + 1}</option>
                                             ))}
@@ -141,21 +141,21 @@ const Cart = () => {
 
             </div>
 
-            <div className="max-w-[360px] w-full bg-gray-100/40 p-5 max-md:mt-16 border border-gray-300/70">
-                <h2 className="text-xl md:text-xl font-medium">Order Summary</h2>
-                <hr className="border-gray-300 my-5" />
+            <div className="max-w-[360px] w-full bg-gray-100/40 dark:bg-slate-800/50 p-5 max-md:mt-16 border border-gray-300/70 dark:border-gray-600/50">
+                <h2 className="text-xl md:text-xl font-medium text-gray-800 dark:text-gray-200">Order Summary</h2>
+                <hr className="border-gray-300 dark:border-gray-600 my-5" />
 
                 <div className="mb-6">
-                    <p className="text-sm font-medium uppercase">Delivery Address</p>
+                    <p className="text-sm font-medium uppercase text-gray-700 dark:text-gray-200">Delivery Address</p>
                     <div className="relative flex justify-between items-start mt-2">
-                        <p className="text-gray-500">{selectedAddress ? `${selectedAddress.street}, ${selectedAddress.city}, ${selectedAddress.state}, ${selectedAddress.country}` : "No address found"}</p>
+                        <p className="text-gray-500 dark:text-gray-400">{selectedAddress ? `${selectedAddress.street}, ${selectedAddress.city}, ${selectedAddress.state}, ${selectedAddress.country}` : "No address found"}</p>
                         <button onClick={() => setShowAddress(!showAddress)} className="text-primary hover:underline cursor-pointer">
                             Change
                         </button>
                         {showAddress && (
-                            <div className="absolute top-12 py-1 bg-white border border-gray-300 text-sm w-full">
+                            <div className="absolute top-12 py-1 bg-white dark:bg-slate-700 border border-gray-300 dark:border-gray-600 text-sm w-full z-10">
                                {addresses.map((address, index)=>(
-                                <p onClick={() => {setSelectedAddress(address); setShowAddress(false)}} className="text-gray-500 p-2 hover:bg-gray-100">
+                                <p key={index} onClick={() => {setSelectedAddress(address); setShowAddress(false)}} className="text-gray-500 dark:text-gray-300 p-2 hover:bg-gray-100 dark:hover:bg-slate-600 cursor-pointer">
                                     {address.street}, {address.city}, {address.state}, {address.country}
                                 </p>
                             )) }
@@ -166,28 +166,28 @@ const Cart = () => {
                         )}
                     </div>
 
-                    <p className="text-sm font-medium uppercase mt-6">Payment Method</p>
+                    <p className="text-sm font-medium uppercase mt-6 text-gray-700 dark:text-gray-200">Payment Method</p>
 
-                    <select onChange={e => setPaymentOption(e.target.value)} className="w-full border border-gray-300 bg-white px-3 py-2 mt-2 outline-none">
+                    <select onChange={e => setPaymentOption(e.target.value)} className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 px-3 py-2 mt-2 outline-none">
                         <option value="COD">Cash On Delivery</option>
                         <option value="Online">Online Payment</option>
                     </select>
                 </div>
 
-                <hr className="border-gray-300" />
+                <hr className="border-gray-300 dark:border-gray-600" />
 
-                <div className="text-gray-500 mt-4 space-y-2">
+                <div className="text-gray-500 dark:text-gray-200 mt-4 space-y-2">
                     <p className="flex justify-between">
-                        <span>Price</span><span>{currency}{getCartAmount()}</span>
+                        <span>Price</span><span className="text-gray-700 dark:text-gray-300">{currency}{getCartAmount()}</span>
                     </p>
                     <p className="flex justify-between">
-                        <span>Shipping Fee</span><span className="text-green-600">Free</span>
+                        <span>Shipping Fee</span><span className="text-green-600 dark:text-green-400">Free</span>
                     </p>
                     <p className="flex justify-between">
-                        <span>Tax (2%)</span><span>{currency}{getCartAmount() * 2 / 100}</span>
+                        <span>Tax (2%)</span><span className="text-gray-700 dark:text-gray-300">{currency}{getCartAmount() * 2 / 100}</span>
                     </p>
-                    <p className="flex justify-between text-lg font-medium mt-3">
-                        <span>Total Amount:</span><span>
+                    <p className="flex justify-between text-lg font-medium mt-3 text-gray-800 dark:text-gray-200">
+                        <span>Total Amount:</span><span className="text-gray-800 dark:text-gray-200">
                             {currency}{getCartAmount() + getCartAmount() * 2 / 100}</span>
                     </p>
                 </div>

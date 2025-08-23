@@ -2,14 +2,205 @@
 
 @import "tailwindcss";
 
-*{
-  font-family: "Outfit", sans-serif;
-}
+/* Define dark mode variant for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-primary: #4fbf8b;
   --color-primary-dull: #44ae7c;
 }
+
+/* Dark mode theme colors for Tailwind v4 */
+@layer theme {
+  .dark {
+    --color-slate-900: #0f172a;
+    --color-slate-800: #1e293b;
+    --color-slate-700: #334155;
+    --color-slate-600: #475569;
+    --color-slate-200: #f1f5f9;
+    --color-gray-700: #f1f5f9;
+    --color-gray-800: #f1f5f9;
+    --color-gray-600: #cbd5e1;
+    --color-gray-300: #475569;
+  }
+}
+
+*{
+  font-family: "Outfit", sans-serif;
+}
+
+/* Mobile-first responsive improvements */
+@media (max-width: 640px) {
+  /* Prevent horizontal scroll on mobile */
+  html, body {
+    overflow-x: hidden;
+  }
+  
+  /* Better touch targets for mobile */
+  button, a, input {
+    min-height: 44px;
+  }
+  
+  /* Improved text readability on mobile */
+  p, span, div {
+    line-height: 1.6;
+  }
+}
+
+/* Tablet improvements */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Optimize spacing for tablets */
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Desktop improvements */
+@media (min-width: 1025px) {
+  /* Better hover states for desktop */
+  button:hover, a:hover {
+    transition: all 0.3s ease;
+  }
+}
+
+/* Custom Animations for About Us Page */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.animate-bounce-in {
+  animation: bounceIn 1s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+/* Animation Delays */
+.animation-delay-200 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.animation-delay-300 {
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+/* Force light mode styles */
+:root {
+  --bg-color: white;
+  --text-color: #374151;
+  --card-bg: white;
+  --border-color: #d1d5db;
+  --text-shadow: none;
+}
+
+/* Dark mode variables */
+:root.dark {
+  --bg-color: #0f172a;
+  --text-color: #f1f5f9;
+  --card-bg: #1e293b;
+  --border-color: #475569;
+  --text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Apply the variables */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}
+
+/* Force dark mode styles when .dark class is present */
+html.dark {
+  color-scheme: dark;
+}
+
+/* Override any conflicting styles */
+.dark .bg-white { background-color: #1e293b !important; }
+.dark .bg-slate-800 { background-color: #1e293b !important; }
+.dark .bg-slate-900 { background-color: #0f172a !important; }
+.dark .text-gray-700 { color: #f1f5f9 !important; }
+.dark .text-gray-800 { color: #f1f5f9 !important; }
+.dark .text-slate-200 { color: #f1f5f9 !important; }
+.dark .border-gray-300 { border-color: #475569 !important; }
+.dark .border-gray-600 { border-color: #475569 !important; }
 
 .no-scrollbar::-webkit-scrollbar{
   display: none;

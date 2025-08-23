@@ -53,10 +53,10 @@ const AddProduct = () => {
       }
 
   return (
-    <div className="no-scrollbar flex-1 h-[95vh] overflow-y-scroll flex flex-col justify-between">
+    <div className="no-scrollbar flex-1 h-[95vh] overflow-y-scroll flex flex-col justify-between bg-white dark:bg-slate-900 transition-colors duration-300">
             <form onSubmit={onSubmitHandler} className="md:p-10 p-4 space-y-5 max-w-lg">
                 <div>
-                    <p className="text-base font-medium">Product Image</p>
+                    <p className="text-base font-medium text-gray-800 dark:text-gray-200">Product Image</p>
                     <div className="flex flex-wrap items-center gap-3 mt-2">
                         {Array(4).fill('').map((_, index) => (
                             <label key={index} htmlFor={`image${index}`}>
@@ -74,19 +74,19 @@ const AddProduct = () => {
                     </div>
                 </div>
                 <div className="flex flex-col gap-1 max-w-md">
-                    <label className="text-base font-medium" htmlFor="product-name">Product Name</label>
+                    <label className="text-base font-medium text-gray-800 dark:text-gray-200" htmlFor="product-name">Product Name</label>
                     <input onChange={(e)=> setName(e.target.value)} value={name}
-                     id="product-name" type="text" placeholder="Type here" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40" required />
+                     id="product-name" type="text" placeholder="Type here" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500" required />
                 </div>
                 <div className="flex flex-col gap-1 max-w-md">
-                    <label className="text-base font-medium" htmlFor="product-description">Product Description</label>
+                    <label className="text-base font-medium text-gray-800 dark:text-gray-200" htmlFor="product-description">Product Description</label>
                     <textarea onChange={(e)=> setDescription(e.target.value)} value={description}
-                     id="product-description" rows={4} className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 resize-none" placeholder="Type here"></textarea>
+                     id="product-description" rows={4} className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 resize-none" placeholder="Type here"></textarea>
                 </div>
                 <div className="w-full flex flex-col gap-1">
-                    <label className="text-base font-medium" htmlFor="category">Category</label>
+                    <label className="text-base font-medium text-gray-800 dark:text-gray-200" htmlFor="category">Category</label>
                     <select onChange={(e)=> setCategory(e.target.value)} value={category} 
-                    id="category" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40">
+                    id="category" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200">
                         <option value="">Select Category</option>
                         {categories.map((item, index)=>(
                             <option key={index} value={item.path}>{item.path}</option>
@@ -95,17 +95,17 @@ const AddProduct = () => {
                 </div>
                 <div className="flex items-center gap-5 flex-wrap">
                     <div className="flex-1 flex flex-col gap-1 w-32">
-                        <label className="text-base font-medium" htmlFor="product-price">Product Price</label>
+                        <label className="text-base font-medium text-gray-800 dark:text-gray-200" htmlFor="product-price">Product Price</label>
                         <input onChange={(e)=> setPrice(e.target.value)} value={price}
-                         id="product-price" type="number" placeholder="0" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40" required />
+                         id="product-price" type="number" placeholder="0" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500" required />
                     </div>
                     <div className="flex-1 flex flex-col gap-1 w-32">
-                        <label className="text-base font-medium" htmlFor="offer-price">Offer Price</label>
+                        <label className="text-base font-medium text-gray-800 dark:text-gray-200" htmlFor="offer-price">Offer Price</label>
                         <input onChange={(e)=> setOfferPrice(e.target.value)} value={offerPrice} 
-                        id="offer-price" type="number" placeholder="0" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40" required />
+                        id="offer-price" type="number" placeholder="0" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500" required />
                     </div>
                 </div>
-                <button className="px-8 py-2.5 bg-primary text-white font-medium rounded cursor-pointer">ADD</button>
+                <button className="px-8 py-2.5 bg-primary text-white font-medium rounded cursor-pointer hover:bg-primary-dull transition-colors">ADD</button>
             </form>
         </div>
   )
