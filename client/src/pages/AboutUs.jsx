@@ -128,7 +128,7 @@ const AboutUs = () => {
       </div>
 
       {/* Team Section */}
-      <div className='text-center mb-12 sm:mb-16 px-4'>
+      {/* <div className='text-center mb-12 sm:mb-16 px-4'>
         <h2 className='text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-4 sm:mb-6 animate-fade-in-up'>Meet Our Team</h2>
         <p className='text-sm sm:text-base text-gray-600 dark:text-gray-300 max-w-xs sm:max-w-2xl mx-auto mb-8 sm:mb-12 animate-fade-in-up animation-delay-200'>
           Behind GreenCart is a dedicated team of professionals committed to bringing you the best 
@@ -153,7 +153,7 @@ const AboutUs = () => {
             Dedicated to building technology that connects communities and promotes healthy living.
           </p>
         </div>
-      </div>
+      </div> */}
 
       {/* Call to Action */}
       <div className='text-center bg-primary/5 dark:bg-slate-800/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 mx-4'>
